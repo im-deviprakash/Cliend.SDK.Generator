@@ -12,7 +12,26 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Generate Java SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
 
+      - name: Commit generated Java SDK
+        run: |
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+          cd ${{ github.workspace }}/java
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Add generated Java SDK"
+            git push --force https://dprakash2101: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@github.com/dprakash2101/JavaSDK.git
+          else
+            echo "No changes to commit."
+          fi
+
+        
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
 
@@ -54,24 +73,7 @@ jobs:
             echo "No changes to commit."
           fi
 
-      - name: Generate Java SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
-
-      - name: Commit generated Java SDK
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-          cd ${{ github.workspace }}/java
-
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated Java SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/JavaSDK.git
-          else
-            echo "No changes to commit."
-          fi
+      
 
       - name: Generate JavaScript SDK
         run: |

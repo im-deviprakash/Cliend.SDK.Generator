@@ -44,7 +44,7 @@ jobs:
 
       - name: Commit generated C# SDK
         run: |
-          csharp_repo_url="https://github.com/dprakash2101/CsharpSDK.git"
+        
 
           git config --local user.email "dprakash2101@gmail.com"
           git config --local user.name "dprakash2101"
@@ -54,7 +54,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated C# SDK"
-            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}/dprakash2101/CsharpSDK.git main
+            git push https://dprakash2101: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@github.com/dprakash2101/CsharpSDK.git main
           else
             echo "No changes to commit."
           fi
@@ -65,7 +65,7 @@ jobs:
 
       - name: Commit generated Java SDK
         run: |
-          java_repo_url="https://github.com/dprakash2101/JavaSDK.git"
+         
 
           git config --local user.email "dprakash2101@gmail.com"
           git config --local user.name "dprakash2101"
@@ -75,7 +75,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Java SDK"
-            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/dprakash2101/JavaSDK.git main
+            git push dprakash2101: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@github.com/dprakash2101/JavaSDK.git main
           else
             echo "No changes to commit."
           fi
@@ -87,18 +87,17 @@ jobs:
 
       - name: Commit generated JavaScript SDK
         run: |
-          javascript_repo_url="https://github.com/dprakash2101/JavascriptSDK.git"
-
           git config --local user.email "dprakash2101@gmail.com"
           git config --local user.name "dprakash2101"
 
-          cd ${{ github.workspace }}/javascript
+          cd ${{ github.workspace }}/javascriprt
 
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
-            git commit -m "Add generated JavaScript SDK"
-            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/dprakash2101/JavascriptSDK.git main
+            git commit -m "Add generated Javascript SDK"
+            git push dprakash2101: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@github.com/dprakash2101/JavascriptSDK.git main
           else
             echo "No changes to commit."
           fi
-  
+       
+

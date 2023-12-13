@@ -1,4 +1,4 @@
-name: SDKgenerationautomation
+name: SDK Generation Automation
 
 on:
   push:
@@ -16,76 +16,31 @@ jobs:
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
 
-      - name: Generate Python SDK
+      - name: Generate and Commit SDK
         run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
+          generate_and_commit_sdk() {
+            local language=$1
+            local output_folder="${github.workspace}/${language}"
+            local package_name="Ingrammicroreseller${language^}SDK"
+            local commit_message="Add generated ${language^} SDK"
 
-      - name: Commit generated Python SDK
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
+            openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g $language -o $output_folder --package-name $package_name
 
-          cd ${{ github.workspace }}/python
+            cd $output_folder
 
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated Python SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git
-          else
-            echo "No changes to commit."
-          fi
+            if [ -n "$(git status --porcelain)" ]; then
+              git config --local user.email "dprakash2101@gmail.com"
+              git config --local user.name "dprakash2101"
 
-      - name: Generate C# SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g csharp -o ${{ github.workspace }}/csharp --package-name IngrammicroresellerCSharpSDK
+              git add --all
+              git commit -m "$commit_message"
+              git push --force https://dprakash2101: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@github.com/dprakash2101/${language^}SDK.git
+            else
+              echo "No changes to commit for ${language^} SDK."
+            fi
+          }
 
-      - name: Commit generated C# SDK
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated C# SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/CsharpSDK.git
-          else
-            echo "No changes to commit."
-          fi
-
-      - name: Generate Java SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
-
-      - name: Commit generated Java SDK
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-          cd ${{ github.workspace }}/java
-
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated Java SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/JavaSDK.git
-          else
-            echo "No changes to commit."
-          fi
-
-      - name: Generate JavaScript SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g javascript -o ${{ github.workspace }}/javascript --package-name IngrammicroresellerJavascriptSDK
-
-      - name: Commit generated JavaScript SDK
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-          cd ${{ github.workspace }}/javascript
-
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated JavaScript SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/JavascriptSDK.git
-          else
-            echo "No changes to commit."
-          fi
+          generate_and_commit_sdk "python"
+          generate_and_commit_sdk "csharp"
+          generate_and_commit_sdk "java"
+          generate_and_commit_sdk "javascript"

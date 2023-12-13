@@ -16,6 +16,15 @@ jobs:
         run: |
           openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
 
+      
+
+        
+      - name: Install OpenAPI Generator
+        run: npm install -g @openapitools/openapi-generator-cli@latest
+
+      - name: Generate Python SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
       - name: Commit generated Java SDK
         run: |
           git config --local user.email "dprakash2101@gmail.com"
@@ -30,14 +39,6 @@ jobs:
           else
             echo "No changes to commit."
           fi
-
-        
-      - name: Install OpenAPI Generator
-        run: npm install -g @openapitools/openapi-generator-cli@latest
-
-      - name: Generate Python SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
 
       - name: Commit generated Python SDK
         run: |

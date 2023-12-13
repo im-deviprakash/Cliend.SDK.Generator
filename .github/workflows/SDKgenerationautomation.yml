@@ -18,7 +18,7 @@ jobs:
 
       - name: Generate Python SDK
         run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngrammicroresellerPythonSDK
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
 
       - name: Commit generated Python SDK
         run: |

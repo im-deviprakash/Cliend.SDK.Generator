@@ -32,7 +32,6 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Python SDK"
-            git remote add origin $python_repo_url
             git push origin main
           else
             echo "No changes to commit."

@@ -32,7 +32,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Python SDK"
-            git push --force https://dprakash2101:Prakash&4785@github.com/dprakash2101/PythonSDK.git
+            git push --force https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git
           else
             echo "No changes to commit."
           fi

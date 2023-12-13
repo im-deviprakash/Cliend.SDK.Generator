@@ -1,0 +1,112 @@
+name: SDKgenerationautomation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_and_add_sdks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install OpenAPI Generator
+        run: npm install -g @openapitools/openapi-generator-cli@latest
+
+      - name: Generate Python SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngrammicroresellerPythonSDK
+
+      - name: Commit generated Python SDK
+        run: |
+          python_repo_url="https://github.com/dprakash2101/PythonSDK.git"
+
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+          cd ${{ github.workspace }}/python
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Add generated Python SDK"
+            git push https://$GITHUB_TOKEN@github.com/dprakash2101/PythonSDK.git main
+          else
+            echo "No changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }
+
+      - name: Generate C# SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g csharp -o ${{ github.workspace }}/csharp --package-name IngrammicroresellerCSharpSDK
+
+      - name: Commit generated C# SDK
+        run: |
+        
+
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+          cd ${{ github.workspace }}/csharp
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Add generated C# SDK"
+            git remote add origin $csharp_repo_url
+            git push https://$GITHUB_TOKEN@github.com/dprakash2101/CsharpSDK.git main
+          else
+            echo "No changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }
+          
+      - name: Generate Java SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
+
+      - name: Commit generated Java SDK
+        run: |
+          
+
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+          cd ${{ github.workspace }}/java
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Add generated Java SDK"
+            git remote add origin $java_repo_url
+            git push https://$GITHUB_TOKEN@github.com/dprakash2101/JavaSDK.git main
+          else
+            echo "No changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }
+
+      - name: Generate JavaScript SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g javascript -o ${{ github.workspace }}/javascript --package-name IngrammicroresellerJavascriptSDK
+
+      - name: Commit generated JavaScript SDK
+        run: |
+          javascript_repo_url="https://github.com/dprakash2101/JavascriptSDK.git"
+
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+          cd ${{ github.workspace }}/javascript
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Add generated JavaScript SDK"
+            git remote add origin $javascript_repo_url
+            git push https://github.com/dprakash2101/JavascriptSDK.git main
+          else
+            echo "No changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }

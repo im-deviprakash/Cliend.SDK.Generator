@@ -30,7 +30,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Python SDK"
-            git remote add github https://github.com/dprakash2101/PythonSDK.git
+            git remote add github https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git
             git branch -M main
             git push -u github main
           else

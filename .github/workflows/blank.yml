@@ -32,13 +32,10 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Python SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git
+            git push --force https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git
           else
             echo "No changes to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }}
-
 
       - name: Generate C# SDK
         run: |
@@ -56,7 +53,7 @@ jobs:
             git config --local user.name "dprakash2101"
             git add --all
             git commit -m "Add generated SDK"
-            git push --force https://dprakash2101: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@github.com/dprakash2101/CsharpSDK.git
+            git push --force https://dprakash2101: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@github.com/dprakash2101/CsharpSDK.git
           else
             echo "No changes to commit."
           fi
@@ -79,7 +76,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Java SDK"
-            git push --force dprakash2101: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@github.com/dprakash2101/JavaSDK.git 
+            git push --force dprakash2101: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@github.com/dprakash2101/JavaSDK.git 
           else
             echo "No changes to commit."
           fi
@@ -101,7 +98,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Javascript SDK"
-            git push --force dprakash2101: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@github.com/dprakash2101/JavascriptSDK.git
+            git push --force dprakash2101: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@github.com/dprakash2101/JavascriptSDK.git
           else
             echo "No changes to commit."
           fi

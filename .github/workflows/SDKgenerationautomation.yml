@@ -32,12 +32,11 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Python SDK"
-            git push https://$GITHUB_TOKEN@github.com/dprakash2101/PythonSDK.git main
+            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/dprakash2101/PythonSDK.git main
           else
             echo "No changes to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }}
+
 
       - name: Generate C# SDK
         run: |
@@ -55,12 +54,10 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated C# SDK"
-            git push https://$GITHUB_TOKEN@github.com/dprakash2101/CsharpSDK.git main
+            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}/dprakash2101/CsharpSDK.git main
           else
             echo "No changes to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }}
 
       - name: Generate Java SDK
         run: |
@@ -78,12 +75,11 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated Java SDK"
-            git push https://$GITHUB_TOKEN@github.com/dprakash2101/JavaSDK.git main
+            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/dprakash2101/JavaSDK.git main
           else
             echo "No changes to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }}
+  
 
       - name: Generate JavaScript SDK
         run: |
@@ -101,9 +97,8 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
             git commit -m "Add generated JavaScript SDK"
-            git push https://$GITHUB_TOKEN@github.com/dprakash2101/JavascriptSDK.git main
+            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/dprakash2101/JavascriptSDK.git main
           else
             echo "No changes to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.SDK_TOKEN }}
+  

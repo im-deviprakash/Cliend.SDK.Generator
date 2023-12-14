@@ -13,9 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Create and Checkout Feature Branch
-        run: |
-          git checkout -b feature-branch
+   
           
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
@@ -30,6 +28,7 @@ jobs:
           cd ${{ github.workspace }}/java
 
           if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch
             git add --all
             git commit -m "Add generated Java SDK"
             git push --force https://dprakash2101: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@github.com/dprakash2101/JavaSDK.git feature-branch
@@ -50,6 +49,7 @@ jobs:
           cd ${{ github.workspace }}/python
 
           if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch
             git add --all
             git commit -m "Add generated Python SDK"
             git push --force https://dprakash2101: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@github.com/dprakash2101/PythonSDK.git feature-branch
@@ -67,6 +67,7 @@ jobs:
           git config --local user.name "dprakash2101"
 
           if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch
             git add --all
             git commit -m "Add generated C# SDK"
             git push --force https://dprakash2101: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@github.com/dprakash2101/CSharpSDK.git feature-branch
@@ -86,6 +87,7 @@ jobs:
           cd ${{ github.workspace }}/javascript
 
           if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch
             git add --all
             git commit -m "Add generated JavaScript SDK"
             git push --force https://dprakash2101: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@github.com/dprakash2101/JavascriptSDK.git feature-branch

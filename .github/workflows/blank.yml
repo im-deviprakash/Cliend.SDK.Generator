@@ -15,6 +15,7 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_rsa
 
       - name: Checkout Repository
@@ -23,67 +24,7 @@ jobs:
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
 
-      - name: Set Git Config
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-      - name: Generate Java SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
-
-      - name: Commit and Push generated Java SDK
-        run: |
-          cd ${{ github.workspace }}/java
-
-          if [ -n "$(git status --porcelain)" ]; then
-            branch_name="feature-branch-java-$(date +'%Y%m%d%H%M%S')"
-            git checkout -b $branch_name
-            git add --all
-            git commit -m "Add generated Java SDK"
-            git remote add origin_ssh git@github.com:dprakash2101/JavaSDK.git
-            git push --force origin_ssh $branch_name
-          else
-            echo "No changes to commit."
-          fi
-
-      - name: Generate Python SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
-
-      - name: Commit and Push generated Python SDK
-        run: |
-          cd ${{ github.workspace }}/python
-
-          if [ -n "$(git status --porcelain)" ]; then
-            branch_name="feature-branch-python-$(date +'%Y%m%d%H%M%S')"
-            git checkout -b $branch_name
-            git add --all
-            git commit -m "Add generated Python SDK"
-            git remote add origin_ssh git@github.com:dprakash2101/PythonSDK.git
-            git push --force origin_ssh $branch_name
-          else
-            echo "No changes to commit."
-          fi
-
-      - name: Generate C# SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g csharp -o ${{ github.workspace }}/csharp --package-name IngrammicroresellerCSharpSDK
-
-      - name: Commit and Push generated C# SDK
-        run: |
-          cd ${{ github.workspace }}/csharp
-
-          if [ -n "$(git status --porcelain)" ]; then
-            branch_name="feature-branch-csharp-$(date +'%Y%m%d%H%M%S')"
-            git checkout -b $branch_name
-            git add --all
-            git commit -m "Add generated C# SDK"
-            git remote add origin_ssh git@github.com:dprakash2101/CSharpSDK.git
-            git push --force origin_ssh $branch_name
-          else
-            echo "No changes to commit."
-          fi
+      # ... (rest of your workflow steps)
 
       - name: Generate JavaScript SDK
         run: |

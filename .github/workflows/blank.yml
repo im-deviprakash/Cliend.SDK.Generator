@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          repository: git@github.com:dprakash2101/JavaSDK.git
+          repository: git@github.com:dprakash2101/Cliend.SDK.Generator.git
 
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest

@@ -12,10 +12,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-    
 
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
+
+      - name: Set Git Config
+        run: |
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
 
       - name: Generate Java SDK
         run: |
@@ -69,22 +73,4 @@ jobs:
             git push --force git@github.com:dprakash2101/CSharpSDK.git $branch_name
           else
             echo "No changes to commit."
-          fi
-
-      - name: Generate JavaScript SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g javascript -o ${{ github.workspace }}/javascript --package-name IngrammicroresellerJavascriptSDK
-
-      - name: Commit and Push generated JavaScript SDK
-        run: |
-          cd ${{ github.workspace }}/javascript
-
-          if [ -n "$(git status --porcelain)" ]; then
-            branch_name="feature-branch-javascript-$(date +'%Y%m%d%H%M%S')"
-            git checkout -b $branch_name
-            git add --all
-            git commit -m "Add generated JavaScript SDK"
-            git push --force git@github.com:dprakash2101/JavascriptSDK.git $branch_name
-          else
-            echo "No changes to commit."
-          fi
+        

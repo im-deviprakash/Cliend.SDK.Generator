@@ -1,0 +1,90 @@
+name: SDKgenerationautomation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_and_add_sdks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install OpenAPI Generator
+        run: npm install -g @openapitools/openapi-generator-cli@latest
+
+      - name: Set Git Config
+        run: |
+          git config --local user.email "dprakash2101@gmail.com"
+          git config --local user.name "dprakash2101"
+
+      - name: Generate Java SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g java -o ${{ github.workspace }}/java --package-name IngrammicroresellerJavaSDK
+
+      - name: Commit and Push generated Java SDK
+        run: |
+          cd ${{ github.workspace }}/java
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch-java-$(date +'%Y%m%d%H%M%S')
+            git add --all
+            git commit -m "Add generated Java SDK"
+            git push --force https://github.com/dprakash2101/JavaSDK.git feature-branch-java-$(date +'%Y%m%d%H%M%S')
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Generate Python SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/python --package-name IngramMicroresellerPythonSDK
+
+      - name: Commit and Push generated Python SDK
+        run: |
+          cd ${{ github.workspace }}/python
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch-python-$(date +'%Y%m%d%H%M%S')
+            git add --all
+            git commit -m "Add generated Python SDK"
+            git push --force https://github.com/dprakash2101/PythonSDK.git feature-branch-python-$(date +'%Y%m%d%H%M%S')
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Generate C# SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g csharp -o ${{ github.workspace }}/csharp --package-name IngrammicroresellerCSharpSDK
+
+      - name: Commit and Push generated C# SDK
+        run: |
+          cd ${{ github.workspace }}/csharp
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch-csharp-$(date +'%Y%m%d%H%M%S')
+            git add --all
+            git commit -m "Add generated C# SDK"
+            git push --force https://github.com/dprakash2101/CSharpSDK.git feature-branch-csharp-$(date +'%Y%m%d%H%M%S')
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Generate JavaScript SDK
+        run: |
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g javascript -o ${{ github.workspace }}/javascript --package-name IngrammicroresellerJavascriptSDK
+
+      - name: Commit and Push generated JavaScript SDK
+        run: |
+          cd ${{ github.workspace }}/javascript
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature-branch-javascript-$(date +'%Y%m%d%H%M%S')
+            git add --all
+            git commit -m "Add generated JavaScript SDK"
+            git push --force https://github.com/dprakash2101/JavascriptSDK.git feature-branch-javascript-$(date +'%Y%m%d%H%M%S')
+          else
+            echo "No changes to commit."
+          fi

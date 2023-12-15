@@ -33,6 +33,7 @@ jobs:
 
           # Check if there are changes in the repository
           if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b feature
             git add --all
             git commit -m "Add generated SDK"
 

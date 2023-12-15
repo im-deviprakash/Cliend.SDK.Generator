@@ -33,10 +33,10 @@ jobs:
             git checkout -b feature-branch-python-$(date +'%Y%m%d%H%M%S')
             git add --all
             git commit -m "Add generated Python SDK"
-            
-            # Set up Git credentials using PAT
-            git remote add origin_with_token https://@github.com/im-deviprakash/PythonSDK.git
-            git push --force origin_with_token feature-branch-python-$(date +'%Y%m%d%H%M%S')
+
+            # Set up Git credentials using PAT and dynamically get the branch name
+            git remote add origin_with_token https://github.com/im-deviprakash/PythonSDK.git
+            git push --force origin_with_token ${GITHUB_HEAD_REF:-main}
           else
             echo "No changes to commit."
           fi

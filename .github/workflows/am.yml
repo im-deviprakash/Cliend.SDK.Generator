@@ -78,7 +78,4 @@ jobs:
           else
             echo "No changes to commit."
           fi
-@github.com/im-deviprakash/PythonSDK.git main
-          else
-            echo "No changes to commit."
-          fi
+

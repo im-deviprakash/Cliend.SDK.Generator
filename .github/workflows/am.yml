@@ -37,7 +37,7 @@ jobs:
             git commit -m "Add generated SDK"
 
             # Use your GitHub username and personal access token for authentication
-            git push https://dprakash2101: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@github.com/im-deviprakash/PythonSDK.git main
+            git push --force https://dprakash2101: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@github.com/im-deviprakash/PythonSDK.git feature
           else
             echo "No changes to commit."
           fi

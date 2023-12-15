@@ -19,8 +19,7 @@ jobs:
 
       - name: Generate SDK
         run: |
-          openapi-generator-cli generate --verbose -i combined-api.yaml -g python -o ${{ github.workspace }}/pythonsdk --package-name Combinedapi
-
+          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/pythonsdk --package-name Ingrammicroreseller-api
       - name: Commit and Push generated SDK
         run: |
           set -e

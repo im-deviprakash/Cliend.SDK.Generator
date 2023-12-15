@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate SDK
         run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/pythonsdk --package-name Ingrammicroresellerapi
+          openapi-generator-cli generate --verbose -i combined-api.yaml -g python -o ${{ github.workspace }}/pythonsdk --package-name Combinedapi
 
       - name: Commit and Push generated SDK
         run: |
@@ -29,10 +29,11 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git config --local user.email "dprakash2101@gmail.com"
             git config --local user.name "dprakash2101"
-            git checkout -b feature
             git add --all
             git commit -m "Add generated SDK"
-            git push https://github.com/im-deviprakash/PythonSDK.git feature
+            
+            # Use the SDK_TOKEN secret for authentication
+            git push https://dprakash2101:${{ secrets.SDK_TOKEN }}@github.com/im-deviprakash/PythonSDK.git main
           else
             echo "No changes to commit."
           fi

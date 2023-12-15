@@ -1,42 +1,5 @@
 name: Generate and Add SDK
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  generate_and_add_sdk:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install OpenAPI Generator
-        run: |
-          npm install -g @openapitools/openapi-generator-cli@latest
-
-      - name: Generate SDK
-        run: |
-          openapi-generator-cli generate --verbose -i Ingrammicroreseller-api.yaml -g python -o ${{ github.workspace }}/pythonsdk --package-name Ingrammicroreseller-api
-
-      - name: Configure Git
-        run: |
-          git config --local user.email "dprakash2101@gmail.com"
-          git config --local user.name "dprakash2101"
-
-      - name: Commit and Push generated SDK
-        run: |
-          set -e
-
-          # Check if there are changes in the repository
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Add generated SDK"
-
-            # Use your GitHub username and personal access token for authentication
-            git push https://dprakash2101:name: Generate and Add SDK
 
 on:
   push:
